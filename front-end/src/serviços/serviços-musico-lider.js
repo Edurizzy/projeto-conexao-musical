@@ -5,5 +5,6 @@ export function servicoCadastrarMusicoLider(lider) {
 }
 
 export function servicoBuscarMusicoLider(cpf) {
-  return servidor.get(`/musicos-lideres/${cpf}`);
+  const cpfLimpo = cpf.replace(/[.-]/g, '');
+  return servidor.get(`/musicos-lideres/${cpfLimpo}`);
 }

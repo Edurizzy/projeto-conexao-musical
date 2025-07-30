@@ -1,0 +1,1 @@
+export const CPF_MASCARA = "999.999.999-99";
