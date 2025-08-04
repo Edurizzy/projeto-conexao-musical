@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import LiderBanda from "./lider-banda.ts";
+import LiderBanda from "./lider-banda";
 import Inscricao from "./inscricao";
 
 @Entity()

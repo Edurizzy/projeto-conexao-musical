@@ -5,7 +5,7 @@ npm-debug.log
 yarn-error.log
 yarn.lock
 
-# Arquivos de ambiente - NUNCA ENVIE SUAS SENHAS!
+# Arquivos de ambiente
 .env
 .env.local
 .env.development.local

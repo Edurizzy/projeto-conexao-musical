@@ -4,7 +4,6 @@ import md5 from "md5";
 import { sign } from "jsonwebtoken";
 import Usuario, { Perfil } from "../entidades/usuario";
 import LiderBanda from "../entidades/lider-banda";
-import Musico from "../entidades/musico";
 
 dotenv.config();
 const SALT = 8;
@@ -27,8 +26,6 @@ export default class ServicosUsuario {
       return !!lider;
     }
     if (usuario.perfil === Perfil.MUSICO) {
-      // Para a Etapa 1, o cadastro do Músico é considerado completo ao criar o usuário.
-      // Em etapas futuras, ele teria seu próprio cadastro específico.
       return true; 
     }
     return false;

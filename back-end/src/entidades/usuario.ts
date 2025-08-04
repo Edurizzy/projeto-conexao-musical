@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, OneToOne, PrimaryColumn } from "typeorm";
-import LiderBanda from "./lider-banda.ts";
+import LiderBanda from "./lider-banda";
 import Musico from "./musico";
 
 export enum Perfil { LIDER_BANDA = "lider_banda", MUSICO = "musico" }
