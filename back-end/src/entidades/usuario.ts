@@ -1,11 +1,8 @@
 import { BaseEntity, Column, Entity, OneToOne, PrimaryColumn } from "typeorm";
-import MusicoLider from "./musico-lider";
-import MusicoCandidato from "./musico-candidato";
+import LiderBanda from "./lider-banda.ts";
+import Musico from "./musico";
 
-export enum Perfil {
-  MUSICO_LIDER = "musico_lider",
-  MUSICO_CANDIDATO = "musico_candidato",
-}
+export enum Perfil { LIDER_BANDA = "lider_banda", MUSICO = "musico" }
 export enum Status { PENDENTE = "pendente", ATIVO = "ativo" }
 export enum Cores {
     AMARELO = "yellow", ANIL = "indigo", AZUL = "blue", AZUL_PISCINA = "cyan",
@@ -24,6 +21,6 @@ export default class Usuario extends BaseEntity {
   @Column() questão: string;
   @Column() resposta: string;
   @Column({ type: "enum", enum: Cores }) cor_tema: string;
-  @OneToOne(() => MusicoLider, (lider) => lider.usuario) musico_lider: MusicoLider;
-  @OneToOne(() => MusicoCandidato, (candidato) => candidato.usuario) musico_candidato: MusicoCandidato;
+  @OneToOne(() => LiderBanda, (lider) => lider.usuario) lider_banda: LiderBanda;
+  @OneToOne(() => Musico, (musico) => musico.usuario) musico: Musico;
 }

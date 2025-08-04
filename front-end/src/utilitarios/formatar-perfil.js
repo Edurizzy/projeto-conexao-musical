@@ -1,10 +1,7 @@
 export default function formatarPerfil(perfil) {
     switch (perfil) {
-        case "musico_lider":
-            return "Músico Líder";
-        case "musico_candidato":
-            return "Músico Candidato";
-        default:
-            return "Perfil Desconhecido";
+        case "lider_banda": return "Líder de Banda";
+        case "musico": return "Músico";
+        default: return "Perfil";
     }
 }

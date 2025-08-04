@@ -1,5 +1,3 @@
-import { estilizarErro } from "./estilos";
-
 const ERRO_CAMPO_OBRIGATORIO = "Campo obrigatório não preenchido";
 const ERRO_CONFIRMACAO_SENHA = "As senhas não conferem";
 const ERRO_FORMATO_INVALIDO = "Formato de email inválido";
@@ -16,7 +14,7 @@ export function validarCamposObrigatórios(campos) {
 
 export function validarConfirmacaoSenha(senha, confirmacao) {
     let erros = {};
-    if (senha !== confirmacao) {
+    if (senha && confirmacao && senha !== confirmacao) {
         erros.confirmacao = ERRO_CONFIRMACAO_SENHA;
     }
     return erros;
@@ -37,7 +35,7 @@ export function checarListaVazia(lista) {
 
 export function MostrarMensagemErro({ mensagem }) {
     if (mensagem) {
-        return <small className={estilizarErro()}>{mensagem}</small>;
+        return <small className="p-error text-xs font-bold mt-1">{mensagem}</small>;
     }
     return null;
 }

@@ -1,7 +1,9 @@
 # Dependências e Logs
+# Ignora as pastas de pacotes do Node em qualquer lugar do projeto
 node_modules/
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # Arquivos de ambiente - NUNCA ENVIE SUAS SENHAS!
 .env
@@ -10,10 +12,10 @@ yarn-error.log
 .env.test.local
 .env.production.local
 
-# Pastas de Build
+# Pastas de Build (geradas automaticamente)
 build/
 dist/
 
-# Arquivos de sistema
+# Arquivos de sistema operacional
 .DS_Store
 Thumbs.db

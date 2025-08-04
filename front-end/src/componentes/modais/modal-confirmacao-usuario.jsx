@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
-import ContextoUsuario from "../../contextos/contexto-usuário";
-import { estilizarBotao, estilizarBotaoRemover, estilizarDivCampo, estilizarInlineFlex, estilizarLabel, estilizarModal } from "../../utilitários/estilos";
+import ContextoUsuario from "../../contextos/contexto-usuario";
+import { estilizarBotao, estilizarBotaoRemover, estilizarDivCampo, estilizarInlineFlex, estilizarLabel, estilizarModal } from "../../utilitarios/estilos";
+import formatarPerfil from "../../utilitarios/formatar-perfil";
 
 export default function ModalConfirmacaoUsuario() {
     const { 
-        usuarioLogado, setUsuarioLogado, 
-        confirmacaoUsuario, setConfirmacaoUsuario, 
+        setUsuarioLogado, 
+        confirmacaoUsuario, 
         setMostrarModalConfirmacao 
     } = useContext(ContextoUsuario);
 
@@ -15,19 +16,19 @@ export default function ModalConfirmacaoUsuario() {
 
     function ocultar() {
         setMostrarModalConfirmacao(false);
-        setConfirmacaoUsuario(null);
     }
 
     function finalizarCadastro() {
-        // Lógica de navegação baseada no perfil
-        if (confirmacaoUsuario.perfil === "musico_lider") {
+        if (confirmacaoUsuario.perfil === "lider_banda") {
             setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: false });
             setMostrarModalConfirmacao(false);
-            navegar("../cadastrar-musico-lider");
-        } else {
-            // No futuro, aqui entraria a lógica para o Músico Candidato
-            // Por enquanto, vamos simular um cadastro bem-sucedido e ir para a página inicial
-            setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: true, status: 'ativo' }); // Simula o status ativo
+            navegar("../cadastrar-lider-banda");
+        } else if (confirmacaoUsuario.perfil === "musico") {
+            // Na Etapa 1, o Músico não tem cadastro específico.
+            // Aqui, chamaríamos o serviço para ativar o usuário no back-end.
+            // Por simplicidade, vamos apenas logar e ir para a página inicial.
+            alert("Cadastro de Músico realizado com sucesso! (Funcionalidade de ativação seria implementada aqui)");
+            setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: true, status: 'ativo' });
             setMostrarModalConfirmacao(false);
             navegar("../pagina-inicial");
         }
@@ -37,7 +38,7 @@ export default function ModalConfirmacaoUsuario() {
         <div className={estilizarModal()}>
             <div className={estilizarDivCampo()}>
                 <label className={estilizarLabel(confirmacaoUsuario?.cor_tema)}>Tipo de Perfil:</label>
-                <label>{confirmacaoUsuario?.perfil === 'musico_lider' ? 'Músico Líder' : 'Músico Candidato'}</label>
+                <label>{formatarPerfil(confirmacaoUsuario?.perfil)}</label>
             </div>
             <div className={estilizarDivCampo()}>
                 <label className={estilizarLabel(confirmacaoUsuario?.cor_tema)}>CPF (nome de usuário):</label>
@@ -58,7 +59,7 @@ export default function ModalConfirmacaoUsuario() {
 
             <div className={estilizarInlineFlex()}>
                 <Button label="Salvar" onClick={finalizarCadastro} className={estilizarBotao(confirmacaoUsuario?.cor_tema)} />
-                <Button label="Corrigir" onClick={ocultar} className={estilizarBotaoRemover(confirmacaoUsuario?.cor_tema)} />
+                <Button label="Corrigir" onClick={ocultar} className={estilizarBotaoRemover()} />
             </div>
         </div>
     );

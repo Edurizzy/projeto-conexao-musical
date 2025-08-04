@@ -28,32 +28,32 @@ export function estilizarLabel(cor_tema = TEMA_PADRAO) {
     return `w-auto text-md mb-2 text-${cor_tema}-700 font-bold`;
 }
 
-function aplicarBorda(erro, cor_tema = TEMA_PADRAO) {
-    return erro ? "p-invalid" : `border-${cor_tema}-800`;
+function aplicarBorda(erro) {
+    return erro ? "p-invalid" : "";
 }
 
-export function estilizarInputText(erro, largura = 400, cor_tema = TEMA_PADRAO) {
-    return `p-inputtext-sm w-${largura}px ${aplicarBorda(erro, cor_tema)}`;
+export function estilizarInputText(erro, largura = 400) {
+    return `p-inputtext-sm w-${largura}px ${aplicarBorda(erro)}`;
 }
 
-export function estilizarInputMask(erro, cor_tema = TEMA_PADRAO) {
-    return `p-inputtext-sm w-auto ${aplicarBorda(erro, cor_tema)}`;
+export function estilizarInputMask(erro) {
+    return `p-inputtext-sm w-auto ${aplicarBorda(erro)}`;
 }
 
-export function estilizarPasswordInput(erro, cor_tema = TEMA_PADRAO) {
-    return `p-inputtext-sm ${aplicarBorda(erro, cor_tema)}`;
+export function estilizarPasswordInput(erro) {
+    return `p-inputtext-sm ${aplicarBorda(erro)}`;
 }
 
-export function estilizarDropdown(erro, cor_tema = TEMA_PADRAO) {
-    return `p-inputtext-sm w-auto ${aplicarBorda(erro, cor_tema)}`;
+export function estilizarDropdown(erro) {
+    return `p-inputtext-sm w-auto ${aplicarBorda(erro)}`;
 }
 
 export function estilizarBotao(cor_tema = TEMA_PADRAO) {
-    return `p-button-sm h-2rem text-base w-auto md:w-min mr-2 bg-${cor_tema}-600 border-${cor_tema}-800 shadow-6`;
+    return `p-button-sm h-2rem text-base w-auto md:w-min mr-2 bg-${cor_tema}-600 border-${cor_tema}-800`;
 }
 
 export function estilizarBotaoRemover() {
-    return `p-button-sm h-2rem text-base w-auto md:w-min mr-2 p-button-danger border-red-800 shadow-6`;
+    return `p-button-sm h-2rem text-base w-auto md:w-min mr-2 p-button-danger`;
 }
 
 export function estilizarLink(cor_tema = TEMA_PADRAO) {
@@ -92,8 +92,12 @@ export function estilizarMenuLateralDesktop(cor_tema = TEMA_PADRAO) {
     return `p-4 flex flex-column align-items-center h-screen fixed surface-50 bg-${cor_tema}-100 text-${cor_tema}-800`;
 }
 
-export function estilizarTitulo(cor_tema = TEMA_PADRAO) {
+export function estilizarTituloMenu(cor_tema = TEMA_PADRAO) {
     return `text-2xl font-bold align-self-start text-${cor_tema}-800`;
+}
+
+export function estilizarSubtituloMenu(cor_tema = TEMA_PADRAO) {
+    return `text-lg font-italic align-self-start text-${cor_tema}-500 mb-6`;
 }
 
 export function estilizarMenu() {

@@ -1,7 +1,6 @@
 import React, { createContext, useState } from "react";
 
 const ContextoUsuario = createContext();
-
 export default ContextoUsuario;
 
 export function ProvedorUsuario({ children }) {

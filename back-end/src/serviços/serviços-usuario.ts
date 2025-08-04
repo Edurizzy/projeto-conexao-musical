@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import md5 from "md5";
 import { sign } from "jsonwebtoken";
 import Usuario, { Perfil } from "../entidades/usuario";
-import MusicoLider from "../entidades/musico-lider";
-import MusicoCandidato from "../entidades/musico-candidato";
+import LiderBanda from "../entidades/lider-banda";
+import Musico from "../entidades/musico";
 
 dotenv.config();
 const SALT = 8;
@@ -13,7 +13,8 @@ const SENHA_JWT = process.env.SENHA_JWT;
 export default class ServicosUsuario {
   static async verificarCpfExistente(request, response) {
     try {
-      const cpf_encriptado = md5(request.params.cpf);
+      const cpfLimpo = request.params.cpf.replace(/[.-]/g, '');
+      const cpf_encriptado = md5(cpfLimpo);
       const usuario = await Usuario.findOne(cpf_encriptado);
       if (usuario) return response.status(400).json({ erro: "CPF já cadastrado." });
       return response.json();
@@ -21,15 +22,14 @@ export default class ServicosUsuario {
   }
 
   static async verificarCadastroCompleto(usuario: Usuario) {
-    if (usuario.perfil === Perfil.MUSICO_LIDER) {
-      const lider = await MusicoLider.findOne({ where: { usuario: usuario.cpf } });
+    if (usuario.perfil === Perfil.LIDER_BANDA) {
+      const lider = await LiderBanda.findOne({ where: { usuario: usuario.cpf } });
       return !!lider;
     }
-    if (usuario.perfil === Perfil.MUSICO_CANDIDATO) {
-      const candidato = await MusicoCandidato.findOne({ where: { usuario: usuario.cpf } });
-      // Para a Etapa 1, consideramos que o cadastro do candidato está completo ao se criar.
-      // Em etapas futuras, pode haver um cadastro específico para ele.
-      return true;
+    if (usuario.perfil === Perfil.MUSICO) {
+      // Para a Etapa 1, o cadastro do Músico é considerado completo ao criar o usuário.
+      // Em etapas futuras, ele teria seu próprio cadastro específico.
+      return true; 
     }
     return false;
   }
@@ -37,7 +37,7 @@ export default class ServicosUsuario {
   static async logarUsuario(request, response) {
     try {
       const { nome_login, senha } = request.body;
-      const cpf_encriptado = md5(nome_login);
+      const cpf_encriptado = md5(nome_login.replace(/[.-]/g, ''));
       const usuario = await Usuario.findOne(cpf_encriptado);
 
       if (!usuario) return response.status(404).json({ erro: "Usuário não cadastrado." });
@@ -61,7 +61,7 @@ export default class ServicosUsuario {
   static async cadastrarUsuario(usuario_informado) {
     try {
       const { cpf, nome, perfil, email, senha, questão, resposta, cor_tema } = usuario_informado;
-      const cpf_encriptado = md5(cpf);
+      const cpf_encriptado = md5(cpf.replace(/[.-]/g, ''));
       const senha_encriptada = await bcrypt.hash(senha, SALT);
       const resposta_encriptada = await bcrypt.hash(resposta, SALT);
       
@@ -70,8 +70,7 @@ export default class ServicosUsuario {
         resposta: resposta_encriptada, cor_tema,
       });
 
-      const token = sign({ perfil: usuario.perfil }, SENHA_JWT, { subject: usuario.nome, expiresIn: "1d" });
-      return { usuario, token };
+      return { usuario };
     } catch (error) { throw new Error("Erro ao cadastrar usuário."); }
   }
 }

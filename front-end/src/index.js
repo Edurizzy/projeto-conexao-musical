@@ -1,25 +1,24 @@
 import React from 'react';
-import { hydrateRoot, createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { locale, addLocale } from 'primereact/api';
-
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "/node_modules/primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "./global.css";
+import portugues from "./utilitarios/portugues.json";
+import Rotas from "./rotas/rotas-aplicacao";
+import { ProvedorUsuario } from './contextos/contexto-usuario';
 
-import português from "./utilitarios/português.json"
-import Rotas from "./rotas/rotas-aplicação";
-import { ProvedorUsuario } from './contextos/contexto-usuário';
+addLocale("pt", portugues);
+locale("pt");
 
-addLocale("pt", português)
-locale("pt")
-
-const rootElement = document.getElementById("root");
-const App = (<ProvedorUsuario><Rotas /></ProvedorUsuario>);
-
-if (rootElement.hasChildNodes()) {
-  hydrateRoot(rootElement, App);
-} else {
-  createRoot(rootElement).render(App);
-}
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <React.StrictMode>
+    <ProvedorUsuario>
+      <Rotas />
+    </ProvedorUsuario>
+  </React.StrictMode>
+);

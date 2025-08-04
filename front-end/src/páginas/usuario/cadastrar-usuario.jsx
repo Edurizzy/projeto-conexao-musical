@@ -9,13 +9,12 @@ import { InputMask } from "primereact/inputmask";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
-
-import ContextoUsuario from "../../contextos/contexto-usuário";
-import ModalConfirmacaoUsuario from "../../componentes/modais/modal-confirmação-usuário";
-import { servicoVerificarCpfExistente } from "../../serviços/serviços-usuário";
+import ContextoUsuario from "../../contextos/contexto-usuario";
+import ModalConfirmacaoUsuario from "../../componentes/modais/modal-confirmacao-usuario";
+import { servicoVerificarCpfExistente } from "../../serviços/servicos-usuario";
 import mostrarToast from "../../utilitarios/mostrar-toast";
-import { CPF_MASCARA } from "../../utilitarios/máscaras";
-import { MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios, validarConfirmacaoSenha } from "../../utilitarios/validações";
+import { CPF_MASCARA } from "../../utilitarios/mascaras";
+import { MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios, validarConfirmacaoSenha } from "../../utilitarios/validacoes";
 import { estilizarBotao, estilizarCard, estilizarDialog, estilizarDivCampo, estilizarDivider, estilizarDropdown, estilizarFlex, estilizarInputMask, estilizarInputText, estilizarLabel, estilizarLink, estilizarPasswordInput, estilizarSubtitulo, TEMA_PADRAO, opcoesCores } from "../../utilitarios/estilos";
 
 export default function CadastrarUsuario() {
@@ -27,22 +26,16 @@ export default function CadastrarUsuario() {
     } = useContext(ContextoUsuario);
 
     const [dados, setDados] = useState({
-        cpf: usuarioLogado?.cpf || "",
-        nome: usuarioLogado?.nome || "",
-        perfil: usuarioLogado?.perfil || "",
-        email: usuarioLogado?.email || "",
-        senha: "",
-        confirmacao: "",
-        questão: usuarioLogado?.questão || "",
-        resposta: "",
-        cor_tema: usuarioLogado?.cor_tema || TEMA_PADRAO
+        cpf: usuarioLogado?.cpf || "", nome: usuarioLogado?.nome || "",
+        perfil: usuarioLogado?.perfil || "", email: usuarioLogado?.email || "",
+        senha: "", confirmacao: "", questão: usuarioLogado?.questão || "",
+        resposta: "", cor_tema: usuarioLogado?.cor_tema || TEMA_PADRAO
     });
     const [erros, setErros] = useState({});
 
-    // ADAPTAÇÃO PARA O TEMA "CONEXÃO MUSICAL"
     const opcoesPerfis = [
-        { label: "Músico Líder", value: "musico_lider" },
-        { label: "Músico Candidato", value: "musico_candidato" },
+        { label: "Líder de Banda", value: "lider_banda" },
+        { label: "Músico", value: "musico" },
     ];
 
     function alterarEstado(event) {
@@ -50,34 +43,34 @@ export default function CadastrarUsuario() {
         setDados({ ...dados, [name]: value });
     }
 
-    function validarCampos() {
-        if (usuarioLogado?.perfil) { // Lógica para alteração (futuro)
+    function validar() {
+        if (usuarioLogado?.perfil) { // Lógica de alteração (futuro)
+            // ...
             return true;
-        } else { // Lógica para cadastro
+        } else { // Lógica de cadastro
             const { perfil, cpf, nome, email, senha, confirmacao, questão, resposta } = dados;
             let errosObrigatorios = validarCamposObrigatórios({ perfil, cpf, nome, email, senha, confirmacao, questão, resposta });
             let errosEmail = validarCampoEmail(email);
             let errosSenha = validarConfirmacaoSenha(senha, confirmacao);
-
             const novosErros = { ...errosObrigatorios, ...errosEmail, ...errosSenha };
             setErros(novosErros);
             return checarListaVazia(novosErros);
         }
     }
 
-    async function validarConfirmarCriacao() {
-        if (validarCampos()) {
+    async function submeter() {
+        if (validar()) {
             try {
                 await servicoVerificarCpfExistente(dados.cpf);
                 setConfirmacaoUsuario(dados);
                 setMostrarModalConfirmacao(true);
             } catch (error) {
-                mostrarToast(referenciaToast, error.response.data.erro, "erro");
+                mostrarToast(referenciaToast, error.response?.data?.erro || "Erro no servidor", "erro");
             }
         }
     }
     
-    const ehConsulta = !!usuarioLogado?.perfil;
+    const ehConsulta = !!usuarioLogado?.cadastrado;
 
     return (
         <div className={estilizarFlex("center")}>
@@ -94,7 +87,6 @@ export default function CadastrarUsuario() {
                         placeholder="-- Selecione --" disabled={ehConsulta} className={estilizarDropdown(erros.perfil, dados.cor_tema)} />
                     <MostrarMensagemErro mensagem={erros.perfil} />
                 </div>
-
                 <Divider className={estilizarDivider(dados.cor_tema)} />
                 <h2 className={estilizarSubtitulo(dados.cor_tema)}>Dados Pessoais</h2>
                 <div className={estilizarDivCampo()}>
@@ -136,7 +128,7 @@ export default function CadastrarUsuario() {
                     <div className={estilizarDivCampo()}>
                         <label className={estilizarLabel(dados.cor_tema)}>Questão de Segurança*:</label>
                         <InputText name="questão" value={dados.questão} onChange={alterarEstado}
-                            placeholder="Ex: Qual era o nome do meu primeiro pet?" className={estilizarInputText(erros.questão, 400, dados.cor_tema)} />
+                            placeholder="Ex: Nome do seu primeiro animal de estimação?" className={estilizarInputText(erros.questão, 400, dados.cor_tema)} />
                         <MostrarMensagemErro mensagem={erros.questão} />
                     </div>
                     <div className={estilizarDivCampo()}>
@@ -156,7 +148,7 @@ export default function CadastrarUsuario() {
                 </div>
 
                 <div className="flex justify-content-center my-4">
-                    {!ehConsulta && <Button label="Cadastrar" onClick={validarConfirmarCriacao} className={estilizarBotao(dados.cor_tema)} />}
+                    {!ehConsulta && <Button label="Cadastrar" onClick={submeter} className={estilizarBotao(dados.cor_tema)} />}
                 </div>
 
                 <div className={estilizarFlex("center")}>

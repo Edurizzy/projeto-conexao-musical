@@ -5,19 +5,18 @@ import { Card } from "primereact/card";
 import { InputMask } from "primereact/inputmask";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
-
-import ContextoUsuario from "../../contextos/contexto-usuário";
-import { servicoLogarUsuario } from "../../serviços/serviços-usuário";
+import ContextoUsuario from "../../contextos/contexto-usuario"; // CORRIGIDO
+import { servicoLogarUsuario } from "../../serviços/servicos-usuario"; // CORRIGIDO
 import mostrarToast from "../../utilitarios/mostrar-toast";
-import { CPF_MASCARA } from "../../utilitarios/máscaras";
-import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validações";
+import { CPF_MASCARA } from "../../utilitarios/mascaras"; // CORRIGIDO
+import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validacoes"; // CORRIGIDO
 import { estilizarBotao, estilizarCard, estilizarDivCampo, estilizarFlex, estilizarInputMask, estilizarLabel, estilizarLink, estilizarLogo, estilizarPasswordInput, estilizarPaginaUnica } from "../../utilitarios/estilos";
 
+// ... (cole o resto da lógica do seu componente aqui)
 export default function LogarUsuario() {
     const referenciaToast = useRef(null);
     const { setUsuarioLogado } = useContext(ContextoUsuario);
     const navegar = useNavigate();
-
     const [dados, setDados] = useState({ nome_login: "", senha: "" });
     const [erros, setErros] = useState({});
 
@@ -36,14 +35,10 @@ export default function LogarUsuario() {
         if (validarCampos()) {
             try {
                 const response = await servicoLogarUsuario(dados);
-                setUsuarioLogado({ 
-                    ...response.data.usuarioLogado, 
-                    cpf: dados.nome_login, 
-                    cadastrado: true 
-                });
+                setUsuarioLogado({ ...response.data.usuarioLogado, cpf: dados.nome_login, cadastrado: true });
                 navegar("/pagina-inicial");
             } catch (error) {
-                mostrarToast(referenciaToast, error.response.data.erro, "erro");
+                mostrarToast(referenciaToast, error.response?.data?.erro || "Erro no servidor", "erro");
             }
         }
     }
@@ -67,7 +62,7 @@ export default function LogarUsuario() {
                 </div>
                 <div className={estilizarFlex("center")}>
                     <Button label="Login" onClick={logar} className={estilizarBotao()} />
-                    <Link to="/recuperar-acesso" className={estilizarLink()}>Recuperar Acesso de Usuário</Link>
+                    <Link to="/" className={estilizarLink()}>Recuperar Acesso de Usuário</Link>
                     <Link to="/criar-usuario" className={estilizarLink()}>Cadastrar Usuário</Link>
                 </div>
             </Card>
