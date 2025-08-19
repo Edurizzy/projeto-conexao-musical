@@ -6,10 +6,10 @@ import { InputMask } from "primereact/inputmask";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
 import ContextoUsuario from "../../contextos/contexto-usuario"; // CORRIGIDO
-import { servicoLogarUsuario } from "../../serviços/servicos-usuario"; // CORRIGIDO
+import { servicoLogarUsuario } from "../../serviços/serviços-usuário"; // CORRIGIDO
 import mostrarToast from "../../utilitarios/mostrar-toast";
-import { CPF_MASCARA } from "../../utilitarios/mascaras"; // CORRIGIDO
-import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validacoes"; // CORRIGIDO
+import { CPF_MASCARA } from "../../utilitarios/máscaras"; // CORRIGIDO
+import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validações"; // CORRIGIDO
 import { estilizarBotao, estilizarCard, estilizarDivCampo, estilizarFlex, estilizarInputMask, estilizarLabel, estilizarLink, estilizarLogo, estilizarPasswordInput, estilizarPaginaUnica } from "../../utilitarios/estilos";
 
 // ... (cole o resto da lógica do seu componente aqui)

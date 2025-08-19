@@ -1,4 +1,4 @@
-import { Perfil } from "../entidades/usuario";
+import { Perfil } from "../entidades/usuário";
 
 export default function verificarPerfilLiderBanda(request, response, next) {
   if (request.perfil === Perfil.LIDER_BANDA) return next();

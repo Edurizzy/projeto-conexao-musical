@@ -1,7 +1,7 @@
 import { Router } from "express";
 import verificarToken from "../middlewares/verificar-token";
-import verificarPerfilLiderBanda from "../middlewares/verificar-perfil-lider-banda";
-import ServicosLiderBanda from "../serviços/serviços-lider-banda";
+import verificarPerfilLiderBanda from "../middlewares/verificar-perfil-líder-banda";
+import ServicosLiderBanda from "../serviços/serviços-líder-banda";
 
 const rotasLiderBanda = Router();
 rotasLiderBanda.post("/", ServicosLiderBanda.cadastrarLiderBanda);

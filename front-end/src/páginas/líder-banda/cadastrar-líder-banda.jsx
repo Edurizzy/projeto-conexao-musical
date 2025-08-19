@@ -6,9 +6,9 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuario from "../../contextos/contexto-usuario";
-import { servicoCadastrarLiderBanda, servicoBuscarLiderBanda } from "../../serviços/servicos-lider-banda";
+import { servicoCadastrarLiderBanda, servicoBuscarLiderBanda } from "../../serviços/serviços-líder-banda";
 import mostrarToast from "../../utilitarios/mostrar-toast";
-import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validacoes";
+import { MostrarMensagemErro, validarCamposObrigatórios, checarListaVazia } from "../../utilitarios/validações";
 import { estilizarBotao, estilizarCard, estilizarDivCampo, estilizarDropdown, estilizarInputText, estilizarLabel, estilizarFlex } from "../../utilitarios/estilos";
 
 // ... (cole o resto da lógica do seu componente aqui)

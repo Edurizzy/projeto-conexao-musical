@@ -9,7 +9,7 @@ module.exports = {
   "port": process.env.TYPEORM_PORT,
   "username": process.env.TYPEORM_USERNAME,
   "password": process.env.TYPEORM_PASSWORD,
-  "database": process.env.TYPEORM_DATABASE,
+  "database": "banco",
   "synchronize": true,
   "entities": [`${dirRaiz}/entidades/*.${extensao}`]
 };

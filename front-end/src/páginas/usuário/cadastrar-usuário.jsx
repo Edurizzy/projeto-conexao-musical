@@ -34,8 +34,8 @@ export default function CadastrarUsuario() {
     const [erros, setErros] = useState({});
 
     const opcoesPerfis = [
-        { label: "Líder de Banda", value: "lider_banda" },
-        { label: "Músico", value: "musico" },
+        { label: "Líder de Banda", value: "LíderBanda" },
+        { label: "Músico", value: "Músico" },
     ];
 
     function alterarEstado(event) {
@@ -44,10 +44,9 @@ export default function CadastrarUsuario() {
     }
 
     function validar() {
-        if (usuarioLogado?.perfil) { // Lógica de alteração (futuro)
-            // ...
+        if (usuarioLogado?.perfil) { 
             return true;
-        } else { // Lógica de cadastro
+        } else {
             const { perfil, cpf, nome, email, senha, confirmacao, questão, resposta } = dados;
             let errosObrigatorios = validarCamposObrigatórios({ perfil, cpf, nome, email, senha, confirmacao, questão, resposta });
             let errosEmail = validarCampoEmail(email);

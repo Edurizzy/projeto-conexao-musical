@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import RotasUsuarioLogado from "./rotas-usuario-logado"; // CORRIGIDO
+import RotasUsuarioLogado from "./rotas-usuário-logado"; // CORRIGIDO
 import LogarUsuario from "../páginas/usuario/logar-usuario"; // CORRIGIDO
 import CadastrarUsuario from "../páginas/usuario/cadastrar-usuario"; // CORRIGIDO
 import PaginaInicial from "../páginas/usuario/pagina-inicial"; // CORRIGIDO

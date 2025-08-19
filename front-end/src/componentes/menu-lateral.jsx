@@ -32,6 +32,7 @@ export default function MenuLateral({ children }) {
             label: "Menu",
             items: [
                 { label: "Consultar meus Dados", command: () => navegar("/consultar-usuario") },
+                { label: "Consultar Dados de Músico", command: () => navegar("/consultar-musico") },
             ]
         },
         { label: "Sair do Sistema", command: () => sairSistema() }
@@ -39,8 +40,8 @@ export default function MenuLateral({ children }) {
 
     function opcoesMenu() {
         switch (usuarioLogado.perfil) {
-            case "lider_banda": return opcoesLiderBanda;
-            case "musico": return opcoesMusico;
+            case "LíderBanda": return opcoesLiderBanda;
+            case "Músico": return opcoesMusico;
             default: return [];
         }
     }

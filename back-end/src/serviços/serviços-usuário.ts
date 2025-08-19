@@ -2,8 +2,9 @@ import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
 import md5 from "md5";
 import { sign } from "jsonwebtoken";
-import Usuario, { Perfil } from "../entidades/usuario";
-import LiderBanda from "../entidades/lider-banda";
+import Usuario, { Perfil } from "../entidades/usuário";
+import LiderBanda from "../entidades/líder-banda";
+import Musico from "../entidades/músico";
 
 dotenv.config();
 const SALT = 8;
@@ -26,7 +27,8 @@ export default class ServicosUsuario {
       return !!lider;
     }
     if (usuario.perfil === Perfil.MUSICO) {
-      return true; 
+      const musico = await Musico.findOne({ where: { usuario: usuario.cpf }});
+      return !!musico; 
     }
     return false;
   }

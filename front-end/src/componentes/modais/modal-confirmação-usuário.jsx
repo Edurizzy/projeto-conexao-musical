@@ -19,18 +19,14 @@ export default function ModalConfirmacaoUsuario() {
     }
 
     function finalizarCadastro() {
-        if (confirmacaoUsuario.perfil === "lider_banda") {
+        if (confirmacaoUsuario.perfil === "LíderBanda") {
             setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: false });
             setMostrarModalConfirmacao(false);
             navegar("../cadastrar-lider-banda");
-        } else if (confirmacaoUsuario.perfil === "musico") {
-            // Na Etapa 1, o Músico não tem cadastro específico.
-            // Aqui, chamaríamos o serviço para ativar o usuário no back-end.
-            // Por simplicidade, vamos apenas logar e ir para a página inicial.
-            alert("Cadastro de Músico realizado com sucesso! (Funcionalidade de ativação seria implementada aqui)");
-            setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: true, status: 'ativo' });
+        } else if (confirmacaoUsuario.perfil === "Músico") {
+            setUsuarioLogado({ ...confirmacaoUsuario, cadastrado: false });
             setMostrarModalConfirmacao(false);
-            navegar("../pagina-inicial");
+            navegar("../cadastrar-musico");
         }
     }
 
